@@ -32,6 +32,6 @@ def changes_get(request):
                     collections[collection_id] = record['last_modified']
 
     # XXX add a filter so we display only the latest changes
-    return {'data': [{'id': colid, 'last_modified': col['last_modified']}
+    return {'data': [{'id': colid, 'last_modified': col}
                      for colid, col in collections.items()
                     ]}
