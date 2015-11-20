@@ -59,3 +59,8 @@ def init(config_file):
                     cache_url=values['cache_url'],
                     permission_backend=values['permission_backend'],
                     permission_url=values['permission_url'])
+
+
+if __name__ == '__main__':
+    import sys
+    init(sys.argv[1])
