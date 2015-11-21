@@ -20,46 +20,51 @@ Use cases
 - Store encrypted data at a location you control.
 - Synchronise application data between different devices.
 
+.. note::
+
+    At Mozilla, *Kinto* is used in *Firefox* and *Firefox OS* for global synchronization
+    of settings and assets, as well as a first-class solution for personal data in
+    browser extensions and Web apps.
+
 
 Key features
 ============
 
 .. |logo-synchronisation| image:: images/logo-synchronisation.svg
    :alt: https://thenounproject.com/search/?q=syncing&i=31170
-   :width: 100px
-
-.. |logo-offline| image:: images/logo-offline.svg
-   :alt: https://thenounproject.com/search/?q=offline&i=90580
-   :width: 100px
+   :width: 70px
 
 .. |logo-permissions| image:: images/logo-permissions.svg
    :alt: https://thenounproject.com/search/?q=permissions&i=23303
-   :width: 100px
+   :width: 70px
 
 .. |logo-multiapps| image:: images/logo-multiapps.svg
    :alt: https://thenounproject.com/search/?q=community&i=189189
-   :width: 100px
+   :width: 70px
 
 .. |logo-selfhostable| image:: images/logo-selfhostable.svg
    :alt: https://thenounproject.com/search/?q=free&i=669
-   :width: 100px
+   :width: 70px
 
 .. |logo-community| image:: images/logo-community.svg
    :alt: https://thenounproject.com/search/?q=community&i=189189
-   :width: 100px
+   :width: 70px
+
+.. |logo-schema| image:: images/logo-jsonschema.svg
+   :alt: https://thenounproject.com/search/?q=quality+control&i=170795
+   :width: 70px
 
 +---------------------------------------------+---------------------------------------+
-| |logo-synchronisation|                      | |logo-offline|                        |
-| :ref:`Synchronisation <api-synchronisation>`| `Offline-first JS client              |
-|                                             | <https://kintojs.readthedocs.org>`_   |
+| |logo-synchronisation|                      | |logo-permissions|                    |
+| Synchronisation                             | Fined grained permissions             |
+|                                             |                                       |
 +---------------------------------------------+---------------------------------------+
-| |logo-permissions|                          | |logo-multiapps|                      |
-| **Fined grained permissions**               | **Plug multiple clients**             |
+| |logo-schema|                               | |logo-multiapps|                      |
+| JSON Schema validation                      | Universal and multi clients           |
 +---------------------------------------------+---------------------------------------+
 | |logo-selfhostable|                         | |logo-community|                      |
-| **Open Source and Self-hostable**           | **Designed in the open**              |
+| Open Source and Self-hostable               | Designed in the open                  |
 +---------------------------------------------+---------------------------------------+
-
 
 **Also**
 
@@ -67,14 +72,58 @@ Key features
 - Pluggable authentication
 - :ref:`Pluggable storage, cache, and permission backends
   <configuration-backends>`
-- Configuration via a single INI file
+- Configuration via a INI file or environment variables
 - Built-in monitoring
+- Cache control
 
+**Ecosystem**
+
+.. |logo-offline| image:: images/logo-offline.svg
+   :alt: https://thenounproject.com/search/?q=offline&i=90580
+   :width: 50px
+
+.. |logo-python| image:: images/logo-python.svg
+   :alt:
+   :width: 50px
+
+.. |logo-attachment| image:: images/logo-attachment.svg
+   :alt: https://thenounproject.com/search/?q=attachment&i=169265
+   :width: 50px
+
+.. |logo-livesync| image:: images/logo-livesync.svg
+   :alt: https://thenounproject.com/search/?q=refresh&i=110628
+   :width: 50px
+
+.. |logo-boilerplate| image:: images/logo-react.svg
+   :alt: https://commons.wikimedia.org/wiki/File:React.js_logo.svg
+   :width: 50px
+
+.. |logo-demos| image:: images/logo-demos.svg
+   :alt: https://thenounproject.com/search/?q=tutorial&i=24313
+   :width: 50px
+
++---------------------------------------------+---------------------------------------------+
+| |logo-offline|                              | |logo-python|                               |
+| Offline-first `JavaScript client            | :github:`Python client                      |
+| <https://kintojs.readthedocs.org>`_         | <Kinto/kinto.py>`                           |
++---------------------------------------------+---------------------------------------------+
+| |logo-attachment|                           | |logo-livesync|                             |
+| :github:`File attachments on records        | Live :github:`Push notifications            |
+| <Kinto/kinto-attachment>`                   | <leplatrem/cliquet-pusher>`                 |
++---------------------------------------------+---------------------------------------------+
+| |logo-boilerplate|                          | |logo-demos|                                |
+| :github:`Kinto+React boilerplate            | :github:`Demo applications                  |
+| <Kinto/kinto-react-boilerplate>`            | <Kinto/kinto/wiki/App-examples>`            |
++---------------------------------------------+---------------------------------------------+
 
 **Coming soon**
 
-- Schema validation
-- Push notifications
+- Administration console
+- Automatic service discovery
+- Push notifications using `the Push API <https://developer.mozilla.org/en-US/docs/Web/API/Push_API>`_
+
+(See `our roadmap <https://github.com/Kinto/kinto/wiki/Roadmap>`_)
+
 
 .. _overview-synchronisation:
 
@@ -116,31 +165,34 @@ permission settings.
 What follows is a comparison table showing how Kinto stacks up compared to some
 other projects in this space.
 
-===========================  ======  ======  ========  =======  ==============
-Project                      Kinto   Parse   Firebase  CouchDB  Remote-Storage
----------------------------  ------  ------  --------  -------  --------------
+===========================  ======  ======  ========  =======  ==============  =======
+Project                      Kinto   Parse   Firebase  CouchDB  Remote-Storage  Kuzzle
+---------------------------  ------  ------  --------  -------  --------------  -------
+Offline-first client         ✔       ✔       ✔         ✔        ✔
 Fine-grained permissions     ✔       ✔       ✔
-Easy query mechanism         ✔       ✔       ✔         [#]_     [#]_
-Conflict resolution          ✔       ✔       ✔         ✔        ✔ [#]_
-Validation                   ✔       ✔       ✔         ✔
-Revision history                                       ✔
-File storage                         ✔                 ✔        ✔
-Batch/bulk operations        ✔       ✔                 ✔
-Changes stream               [#]_    ✔       ✔         ✔
-Pluggable authentication     ✔                         ✔        [#]_
-Pluggable storage / cache    ✔                                  ✔
-Self-hostable                ✔                         ✔        ✔
-Decentralised discovery      [#]_                               ✔
-Open source                  ✔                         ✔        ✔
-Language                     Python                    Erlang   Node.js [#]_
-===========================  ======  ======  ========  =======  ==============
+Easy query mechanism         ✔       ✔       ✔         [#]_     [#]_            ✔
+Conflict resolution          ✔       ✔       ✔         ✔        ✔ [#]_          ?
+Validation                   ✔       ✔       ✔         ✔                        ?
+Revision history                                         ✔
+File storage                 ✔[#]_   ✔                  ✔        ✔
+Batch/bulk operations        ✔       ✔                  ✔
+Changes stream               ✔[#]_   ✔       ✔         ✔                        ✔
+Pluggable authentication     ✔                          ✔        [#]_
+Pluggable storage / cache    ✔                                    ✔              ✔
+Self-hostable                ✔                          ✔        ✔              ✔
+Decentralised discovery      [#]_                                 ✔
+Open source                  ✔                          ✔        ✔              ✔
+Language                     Python                    Erlang   Node.js [#]_    Node.js
+===========================  ======  ======  ========  =======  ==============  =======
 
 .. [#] CouchDB uses Map/Reduce as a query mechanism, which isn't easy to
        understand for newcomers.
 .. [#] Remote Storage allows "ls" on a folder, but items are not sorted or
        paginated.
 .. [#] Kinto uses the same mechanisms as Remote storage for conflict handling.
-.. [#] Notifications support is currently in the work.
+.. [#] File storage is available :github:`via a plugin <Kinto/kinto-attachment>`
+.. [#] Live notifications are available :github:`via a plugin for Pusher
+       <leplatrem/cliquet-pusher>`.
 .. [#] Remote Storage supports OAuth2.0 implicit grant flow.
 .. [#] Support for decentralised discovery
        `is planned <https://github.com/Kinto/kinto/issues/125>`_ but not
@@ -175,8 +227,8 @@ Can I encrypt my data?
 ----------------------
 
 Kinto server stores any data you pass to it, be it encrypted or not.
-We make it easy to use encryption in our Kinto.js client
-`using transformers <http://kintojs.readthedocs.org/en/latest/api/#transformers>`_.
+We make it easy to `use encryption in our Kinto.js client
+<http://www.servicedenuages.fr/en/kinto-encryption-example>`_.
 
 Is there a package for my Operating System?
 -------------------------------------------
@@ -209,10 +261,11 @@ YES™. Have a look at the ``/dev/null`` backend. ;-)
 Can I store files inside Kinto?
 -------------------------------
 
-No. Kinto is a JSON storage service and is not designed to store arbitrary
-files. We'd be open to exploring file storage should a solid use-case
-present itself in the future; however, at this time, it's not on our
-roadmap.
+Yes, for small files you could serialize binary and store them as string (base64
+for example).
+
+For bigger files, there is the `kinto-attachment plugin
+<https://github.com/Kinto/kinto-attachment/>`_.
 
 
 What is Cliquet? What is the difference between Cliquet and Kinto ?
