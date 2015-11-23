@@ -174,9 +174,9 @@ Easy query mechanism         ✔       ✔       ✔         [#]_     [#]_      
 Conflict resolution          ✔       ✔       ✔         ✔        ✔ [#]_          ?
 Validation                   ✔       ✔       ✔         ✔                        ?
 Revision history                                         ✔
-File storage                 ✔[#]_   ✔                  ✔        ✔
+File storage                 ✔ [#]_   ✔                  ✔        ✔
 Batch/bulk operations        ✔       ✔                  ✔
-Changes stream               ✔[#]_   ✔       ✔         ✔                        ✔
+Changes stream               ✔ [#]_   ✔       ✔         ✔                        ✔
 Pluggable authentication     ✔                          ✔        [#]_
 Pluggable storage / cache    ✔                                    ✔              ✔
 Self-hostable                ✔                          ✔        ✔              ✔
